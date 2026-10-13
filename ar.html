@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171717">
+  <title>AR Menu Kantin Beranda</title>
+  <link rel="stylesheet" href="ar.css">
+  <!-- A-Frame is used only for the optional AR mode; normal preview works without WebXR. -->
+  <script src="https://aframe.io/releases/1.7.0/aframe.min.js" defer></script>
+  <script src="ar.js" defer></script>
+</head>
+<body>
+  <div id="app-ui">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">UNIVERSITAS PEMBANGUNAN PANCA BUDI</p>
+        <h1>AR Menu Kantin Beranda</h1>
+      </div>
+      <span id="status" class="status">Pratinjau siap</span>
+    </header>
+
+    <main class="content">
+      <section class="preview-card" aria-live="polite">
+        <div class="preview-heading">
+          <div><p class="eyebrow dark">MENU TERPILIH</p><h2 id="menu-title">Makanan 1</h2></div>
+          <span id="counter">1 / 4</span>
+        </div>
+        <div class="image-wrap">
+          <img id="menu-preview" src="assets/poster_makanan1.png" alt="Poster menu Makanan 1">
+          <p id="image-error" class="image-error hidden">Gambar belum ditemukan. Periksa folder assets dan nama file PNG.</p>
+        </div>
+        <p id="hint" class="hint">Pilih menu menggunakan tombol. Preview tetap dapat digunakan di MacBook meskipun WebXR tidak tersedia.</p>
+      </section>
+
+      <section class="controls" aria-label="Kontrol menu">
+        <div class="menu-buttons">
+          <button class="menu-button active" data-index="0" type="button">Makanan 1</button>
+          <button class="menu-button" data-index="1" type="button">Makanan 2</button>
+          <button class="menu-button" data-index="2" type="button">Minuman 1</button>
+          <button class="menu-button" data-index="3" type="button">Minuman 2</button>
+        </div>
+        <div class="button-row">
+          <button id="previous" class="button secondary" type="button">← Sebelumnya</button>
+          <button id="next" class="button secondary" type="button">Berikutnya →</button>
+        </div>
+        <button id="start-ar" class="button primary" type="button">📷 Mulai AR</button>
+        <button id="stop-ar" class="button secondary hidden" type="button">Keluar dari AR</button>
+        <button id="place-image" class="button secondary hidden" type="button">Tempatkan / perbarui menu</button>
+      </section>
+
+      <section class="note">
+        <strong>Cara menggunakan</strong>
+        <ol>
+          <li>Pilih salah satu menu di tombol atas atau gunakan Sebelumnya/Berikutnya.</li>
+          <li>Untuk mencoba AR, buka halaman melalui HTTPS di Chrome pada HP Android yang mendukung WebXR/ARCore.</li>
+          <li>Tekan Mulai AR dan izinkan akses kamera jika diminta.</li>
+          <li>Jika WebXR tidak didukung, gunakan preview menu di halaman ini; fitur preview tidak memerlukan AR.</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+
+  <div id="ar-overlay" class="hidden"><div class="ar-tip">Gerakkan HP perlahan untuk mencari permukaan, lalu sentuh layar untuk menempatkan menu.</div></div>
+
+  <a-scene id="ar-scene" embedded vr-mode-ui="enabled: false"
+    renderer="alpha: true; colorManagement: true"
+    webxr="optionalFeatures: hit-test, local-floor, dom-overlay; overlayElement: #ar-overlay"
+    visible="false">
+    <a-assets timeout="10000"><img id="poster-texture" src="assets/poster_makanan1.png" crossorigin="anonymous"></a-assets>
+    <a-entity camera position="0 1.6 0" look-controls="enabled: false"></a-entity>
+    <a-entity id="reticle" geometry="primitive: ring; radiusInner: 0.08; radiusOuter: 0.11" material="color: #28d17c; shader: flat" rotation="-90 0 0" visible="false"></a-entity>
+    <a-plane id="poster-plane" width="0.8" height="0.4" material="src: #poster-texture; shader: flat; side: double" visible="false" position="0 0 -1.5"></a-plane>
+  </a-scene>
+</body>
+</html>
