@@ -89,7 +89,7 @@
         hint.textContent = 'A-Frame belum selesai dimuat. Muat ulang halaman dan coba lagi.';
         return;
       }
-      await scene.enterVR();
+      await scene.enterAR();
     } catch (err) {
       console.error('Tidak dapat memulai AR:', err);
       status.textContent = 'AR gagal dimulai';
@@ -97,10 +97,15 @@
     }
   }
   start.addEventListener('click', startAR);
-  stop.addEventListener('click', () => {
-    if (scene && scene.is && scene.is('ar-mode')) scene.exitVR();
-    else cleanupAR();
-  });
+  stop.addEventListener('click', async () => {
+  const session = scene.renderer?.xr?.getSession();
+
+  if (session) {
+    await session.end();
+  } else {
+    cleanupAR();
+  }
+});
   place.addEventListener('click', placeAtReticle);
 
   function placeAtReticle() {
@@ -175,3 +180,4 @@
   });
   setMenu(0);
 })();
+
