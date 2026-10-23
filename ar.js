@@ -1,10 +1,10 @@
 (() => {
   'use strict';
   const menus = [
-    { title: 'Makanan 1', file: 'assets/poster_makanan1.png' },
-    { title: 'Makanan 2', file: 'assets/poster_makanan2.png' },
-    { title: 'Minuman 1', file: 'assets/poster_minuman1.png' },
-    { title: 'Minuman 2', file: 'assets/poster_minuman2.png' }
+    { title: 'Menu utama', file: 'assets/poster_makanan1.png' },
+    { title: 'Jajanan', file: 'assets/poster_makanan2.png' },
+    { title: 'Minuman segar', file: 'assets/poster_minuman1.png' },
+    { title: 'Minuman lainnya', file: 'assets/poster_minuman2.png' }
   ];
   const $ = (id) => document.getElementById(id);
   const preview = $('menu-preview');
@@ -44,10 +44,24 @@
     preview.src = item.file;
     preview.alt = `Poster menu ${item.title}`;
     title.textContent = item.title;
-    counter.textContent = `${current + 1} / ${menus.length}`;
-    document.querySelectorAll('.menu-button').forEach((button, i) => button.classList.toggle('active', i === current));
+    counter.innerHTML = `${String(current + 1).padStart(2, '0')} <i>/</i> ${String(menus.length).padStart(2, '0')}`;
+    document.querySelectorAll('.menu-button').forEach((button, i) => {
+      const active = i === current;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
     if (texture) texture.setAttribute('src', item.file);
     if (plane) plane.setAttribute('material', 'src', '#poster-texture; shader: flat; side: double');
+    if (plane) {
+      const sizingImage = new Image();
+      sizingImage.onload = () => {
+        const aspect = sizingImage.naturalWidth / sizingImage.naturalHeight;
+        const width = Math.min(0.8, 0.72 * aspect);
+        plane.setAttribute('width', width);
+        plane.setAttribute('height', width / aspect);
+      };
+      sizingImage.src = item.file;
+    }
     if (document.body.classList.contains('in-ar')) {
       hint.textContent = 'Menu berubah. Tekan “Tempatkan / perbarui menu” atau sentuh permukaan untuk menempatkannya.';
     } else {
