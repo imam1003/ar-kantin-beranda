@@ -65,6 +65,7 @@
     try { if (hitTestSource) hitTestSource.cancel(); } catch (_) {}
     hitTestSource = null; viewerSpace = null; localSpace = null; latestPose = null; xrSession = null;
     if (reticle && reticle.object3D) reticle.object3D.visible = false;
+    scene.setAttribute('visible', 'false');
     document.body.classList.remove('in-ar');
     $('ar-overlay').classList.add('hidden');
     start.classList.remove('hidden'); stop.classList.add('hidden'); place.classList.add('hidden');
@@ -130,6 +131,7 @@
         this.sceneEl.addEventListener('enter-vr', () => {
           if (!this.sceneEl.is('ar-mode')) return;
           arReady = true;
+          this.sceneEl.setAttribute('visible', 'true');
           document.body.classList.add('in-ar');
           $('ar-overlay').classList.remove('hidden');
           start.classList.add('hidden'); stop.classList.remove('hidden'); place.classList.remove('hidden');
@@ -182,4 +184,3 @@
   });
   setMenu(0);
 })();
-
