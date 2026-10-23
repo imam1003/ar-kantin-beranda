@@ -72,33 +72,55 @@
     status.textContent = 'Pratinjau siap';
   }
 
-  async function startAR() {
-    status.textContent = 'Tombol Mulai AR berhasil ditekan';
 
-    if (!navigator.xr || typeof navigator.xr.isSessionSupported !== 'function') {
-      status.textContent = 'Mode preview (WebXR tidak tersedia)';
-      hint.textContent = 'WebXR tidak tersedia di browser MacBook ini. Kamu tetap bisa melihat dan mengganti poster menggunakan tombol menu.';
+async function startAR() {
+  status.textContent = '1/4: Tombol AR berjalan';
+  hint.textContent = 'Memeriksa dukungan WebXR...';
+
+  if (!navigator.xr ||
+      typeof navigator.xr.isSessionSupported !== 'function') {
+    status.textContent = 'WebXR tidak tersedia';
+    hint.textContent =
+      'Chrome tidak menyediakan API WebXR pada halaman ini.';
+    return;
+  }
+
+  let supported;
+
+  try {
+    status.textContent = '2/4: Memeriksa dukungan AR...';
+
+    supported = await navigator.xr.isSessionSupported('immersive-ar');
+
+    status.textContent = '3/4: Hasil dukungan AR = ' + supported;
+
+    if (!supported) {
+      hint.textContent =
+        'Perangkat atau browser belum mendukung immersive-ar.';
       return;
     }
-    try {
-      const supported = await navigator.xr.isSessionSupported('immersive-ar');
-      if (!supported) {
-        status.textContent = 'Mode preview (AR tidak didukung)';
-        hint.textContent = 'Browser/perangkat ini tidak mendukung mode AR. Preview dan tombol menu tetap aktif.';
-        return;
-      }
-      if (!window.AFRAME || !scene || !scene.enterVR) {
-        status.textContent = 'AR belum siap';
-        hint.textContent = 'A-Frame belum selesai dimuat. Muat ulang halaman dan coba lagi.';
-        return;
-      }
-      await scene.enterAR();
-    } catch (err) {
-      console.error('Tidak dapat memulai AR:', err);
-      status.textContent = 'AR gagal dimulai';
-      hint.textContent = 'Pastikan situs dibuka melalui HTTPS di Chrome Android dan izin kamera diberikan. Preview menu tetap bisa digunakan.';
+
+    if (!window.AFRAME || !scene || typeof scene.enterAR !== 'function') {
+      status.textContent = 'Fungsi enterAR tidak tersedia';
+      hint.textContent =
+        'Periksa apakah A-Frame 1.7.0 sudah berhasil dimuat.';
+      return;
     }
+
+    status.textContent = '4/4: Memulai sesi AR...';
+    hint.textContent =
+      'Jika izin dan dukungan perangkat tersedia, kamera AR akan terbuka.';
+
+    await scene.enterAR();
+
+    status.textContent = 'Permintaan AR selesai';
+  } catch (err) {
+    console.error('Tidak dapat memulai AR:', err);
+    status.textContent = 'AR gagal: ' + (err.name || 'Error');
+    hint.textContent = err.message || 'Tidak ada detail kesalahan.';
   }
+}
+
   start.addEventListener('click', startAR);
   stop.addEventListener('click', async () => {
   const session = scene.renderer?.xr?.getSession();
