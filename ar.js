@@ -72,6 +72,8 @@
   }
 
   async function startAR() {
+    status.textContent = 'Tombol Mulai AR berhasil ditekan';
+
     if (!navigator.xr || typeof navigator.xr.isSessionSupported !== 'function') {
       status.textContent = 'Mode preview (WebXR tidak tersedia)';
       hint.textContent = 'WebXR tidak tersedia di browser MacBook ini. Kamu tetap bisa melihat dan mengganti poster menggunakan tombol menu.';
