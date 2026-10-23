@@ -72,8 +72,10 @@
   document.querySelectorAll('.menu-button').forEach(button => {
     button.addEventListener('click', () => setMenu(Number(button.dataset.index)));
   });
-  $('previous').addEventListener('click', () => setMenu(current - 1));
-  $('next').addEventListener('click', () => setMenu(current + 1));
+  const previous = $('previous');
+  const next = $('next');
+  if (previous) previous.addEventListener('click', () => setMenu(current - 1));
+  if (next) next.addEventListener('click', () => setMenu(current + 1));
 
   function cleanupAR() {
     try { if (hitTestSource) hitTestSource.cancel(); } catch (_) {}
