@@ -71,55 +71,35 @@
     start.classList.remove('hidden'); stop.classList.add('hidden'); place.classList.add('hidden');
     status.textContent = 'Pratinjau siap';
   }
-
-
-async function startAR() {
-  status.textContent = '1/4: Tombol AR berjalan';
-  hint.textContent = 'Memeriksa dukungan WebXR...';
-
-  if (!navigator.xr ||
-      typeof navigator.xr.isSessionSupported !== 'function') {
-    status.textContent = 'WebXR tidak tersedia';
-    hint.textContent =
-      'Chrome tidak menyediakan API WebXR pada halaman ini.';
-    return;
-  }
-
-  let supported;
-
-  try {
-    status.textContent = '2/4: Memeriksa dukungan AR...';
-
-    supported = await navigator.xr.isSessionSupported('immersive-ar');
-
-    status.textContent = '3/4: Hasil dukungan AR = ' + supported;
-
-    if (!supported) {
-      hint.textContent =
-        'Perangkat atau browser belum mendukung immersive-ar.';
+  async function startAR() {
+    if (!window.isSecureContext) {
+      status.textContent = 'Situs perlu HTTPS';
+      hint.textContent = 'Buka halaman melalui HTTPS agar browser mengizinkan WebXR dan kamera.';
       return;
     }
-
+    if (!navigator.xr) {
+      status.textContent = 'WebXR tidak tersedia';
+      hint.textContent = 'Gunakan Chrome Android pada perangkat yang mendukung ARCore dan WebXR.';
+      return;
+    }
     if (!window.AFRAME || !scene || typeof scene.enterAR !== 'function') {
-      status.textContent = 'Fungsi enterAR tidak tersedia';
-      hint.textContent =
-        'Periksa apakah A-Frame 1.7.0 sudah berhasil dimuat.';
+      status.textContent = 'AR belum siap';
+      hint.textContent = 'A-Frame belum siap. Periksa koneksi internet, lalu muat ulang halaman.';
       return;
     }
 
-    status.textContent = '4/4: Memulai sesi AR...';
-    hint.textContent =
-      'Jika izin dan dukungan perangkat tersedia, kamera AR akan terbuka.';
+    status.textContent = 'Memulai AR...';
+    hint.textContent = 'Meminta sesi AR dari browser. Jika diminta, izinkan akses kamera.';
 
-    await scene.enterAR();
-
-    status.textContent = 'Permintaan AR selesai';
-  } catch (err) {
-    console.error('Tidak dapat memulai AR:', err);
-    status.textContent = 'AR gagal: ' + (err.name || 'Error');
-    hint.textContent = err.message || 'Tidak ada detail kesalahan.';
+    try {
+      // Request the XR session directly from the click handler to preserve user activation.
+      await scene.enterAR();
+    } catch (err) {
+      console.error('Tidak dapat memulai AR:', err);
+      status.textContent = `AR gagal: ${err.name || 'Error'}`;
+      hint.textContent = err.message || 'Browser menolak sesi AR. Pastikan HTTPS, dukungan ARCore, dan izin kamera aktif.';
+    }
   }
-}
 
   start.addEventListener('click', startAR);
   stop.addEventListener('click', async () => {
