@@ -65,7 +65,6 @@
     try { if (hitTestSource) hitTestSource.cancel(); } catch (_) {}
     hitTestSource = null; viewerSpace = null; localSpace = null; latestPose = null; xrSession = null;
     if (reticle && reticle.object3D) reticle.object3D.visible = false;
-    scene.setAttribute('visible', 'false');
     document.body.classList.remove('in-ar');
     $('ar-overlay').classList.add('hidden');
     start.classList.remove('hidden'); stop.classList.add('hidden'); place.classList.add('hidden');
@@ -93,6 +92,7 @@
 
     try {
       // Request the XR session directly from the click handler to preserve user activation.
+      scene.setAttribute('visible', 'true');
       await scene.enterAR();
     } catch (err) {
       console.error('Tidak dapat memulai AR:', err);
@@ -181,7 +181,6 @@
 
   // Ensure the canvas is hidden in preview mode even if the browser cannot use WebXR.
   scene.addEventListener('loaded', () => {
-    scene.setAttribute('visible', 'false');
     setMenu(0);
   });
   setMenu(0);

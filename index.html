@@ -65,8 +65,7 @@
 
   <a-scene id="ar-scene" embedded vr-mode-ui="enabled: false"
     renderer="alpha: true; colorManagement: true"
-    webxr="optionalFeatures: hit-test, local-floor, dom-overlay; overlayElement: #ar-overlay"
-    visible="false">
+    webxr="optionalFeatures: hit-test, local-floor, dom-overlay; overlayElement: #ar-overlay">
     <a-assets timeout="10000"><img id="poster-texture" src="assets/poster_makanan1.png" crossorigin="anonymous"></a-assets>
     <a-entity camera position="0 1.6 0" look-controls="enabled: false"></a-entity>
     <a-entity id="reticle" geometry="primitive: ring; radiusInner: 0.08; radiusOuter: 0.11" material="color: #28d17c; shader: flat" rotation="-90 0 0" visible="false"></a-entity>
