@@ -1,12 +1,170 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=ar.html">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>AR Menu Kantin Beranda</title>
+
+  <link rel="stylesheet" href="ar.css">
+
+  <!-- Three.js -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js">
+  </script>
+
 </head>
+
 <body>
-  <p>Halaman dipindahkan. <a href="ar.html">Buka AR Menu Kantin Beranda</a>.</p>
+
+  <header class="header">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        KB
+      </div>
+
+      <div>
+        <h1>Kantin Beranda</h1>
+        <p>Universitas Panca Budi</p>
+      </div>
+
+    </div>
+
+  </header>
+
+  <main>
+
+    <section class="intro">
+
+      <h2>AR Menu Kantin Beranda</h2>
+
+      <p>
+        Arahkan kamera ke meja untuk menampilkan
+        menu makanan dan minuman dalam AR.
+      </p>
+
+      <button id="start-ar" class="primary-button">
+        Mulai AR
+      </button>
+
+      <p id="status">
+        Siap memulai AR
+      </p>
+
+    </section>
+
+    <!-- AREA AR -->
+
+    <section id="ar-container">
+
+      <div id="ar-overlay">
+
+        <div class="ar-top">
+
+          <span id="ar-status">
+            Menunggu AR
+          </span>
+
+          <button id="exit-ar">
+            Keluar AR
+          </button>
+
+        </div>
+
+        <div class="ar-instruction">
+
+          <p id="instruction">
+            Arahkan kamera ke permukaan meja.
+          </p>
+
+        </div>
+
+        <div class="ar-bottom">
+
+          <div class="menu-info">
+
+            <h2 id="menu-title">
+              Menu Minuman 1
+            </h2>
+
+            <p id="menu-counter">
+              1 / 4
+            </p>
+
+          </div>
+
+          <div class="menu-buttons">
+
+            <button id="previous-menu">
+              Sebelumnya
+            </button>
+
+            <button id="next-menu">
+              Berikutnya
+            </button>
+
+          </div>
+
+          <button id="place-menu">
+            Tempatkan Menu di Meja
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- DAFTAR MENU -->
+
+    <section class="menu-selection">
+
+      <h2>Pilih Menu</h2>
+
+      <div class="category-buttons">
+
+        <button data-category="all">
+          Semua
+        </button>
+
+        <button data-category="drink">
+          Minuman
+        </button>
+
+        <button data-category="food">
+          Makanan
+        </button>
+
+      </div>
+
+      <div id="menu-list">
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+
+    <p>
+      AR Menu Kantin Beranda
+    </p>
+
+    <p>
+      Universitas Panca Budi
+    </p>
+
+  </footer>
+
+  <script src="ar.js"></script>
+
 </body>
 </html>
