@@ -1,11 +1,12 @@
-# Kantin Beranda — Menu AR
+# AR Menu Kantin Beranda
 
-Website katalog menu kampus dengan pratinjau poster dan fitur augmented reality berbasis WebXR/A-Frame.
+Katalog menu yang menampilkan poster pada layar kamera.
 
 ## Menjalankan
 
-- Untuk melihat katalog, buka `index.html` di browser.
-- Untuk menggunakan AR, sajikan folder ini lewat HTTPS (atau `localhost`) dan buka di Chrome pada ponsel Android yang mendukung ARCore/WebXR.
-- A-Frame dimuat dari CDN, sehingga koneksi internet diperlukan saat halaman dibuka.
+Buka situs melalui HTTPS agar browser dapat meminta izin kamera. GitHub Pages:
 
-Seluruh poster menu berada di folder `assets/`.
+<https://imam1003.github.io/ar-kantin-beranda/>
+
+Di ponsel, izinkan akses kamera saat diminta. Untuk pengujian lokal, gunakan
+`localhost` melalui server pengembangan.

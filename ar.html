@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>AR Menu Kantin Beranda</title>
+
+  <link rel="stylesheet" href="ar.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon">KB</div>
+
+      <div>
+        <h1>Kantin Beranda</h1>
+        <p>Universitas Panca Budi</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="intro" id="intro">
+      <h2>AR Menu Kantin Beranda</h2>
+
+      <p>
+        Lihat menu makanan dan minuman melalui
+        kamera smartphone.
+      </p>
+
+      <button id="start-ar" class="primary-button">
+        Mulai AR
+      </button>
+
+      <p id="status" class="status">
+        Siap memulai AR
+      </p>
+    </section>
+
+    <section id="camera-container" class="camera-container">
+
+      <video
+        id="camera"
+        autoplay
+        playsinline
+        muted>
+      </video>
+
+      <div class="camera-overlay">
+
+        <div class="camera-top">
+          <button id="close-ar" class="close-button">
+            Tutup Kamera
+          </button>
+
+          <span id="camera-status">
+            Kamera aktif
+          </span>
+        </div>
+
+        <div class="menu-display">
+
+          <img
+            id="menu-image"
+            src="assets/poster_minuman1.png"
+            alt="Poster menu Kantin Beranda">
+
+          <div class="menu-label">
+            <h2 id="menu-title">
+              Menu Minuman
+            </h2>
+
+            <p>
+              Kantin Beranda
+            </p>
+          </div>
+
+        </div>
+
+        <div class="camera-bottom">
+
+          <button id="previous-menu">
+            Menu Sebelumnya
+          </button>
+
+          <button id="next-menu">
+            Menu Berikutnya
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="menu-selection">
+
+      <h2>Pilih Kategori Menu</h2>
+
+      <div class="category-buttons">
+
+        <button data-category="all">
+          Semua
+        </button>
+
+        <button data-category="drink">
+          Minuman
+        </button>
+
+        <button data-category="food">
+          Makanan
+        </button>
+
+      </div>
+
+      <div id="menu-list" class="menu-list">
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      AR Menu Kantin Beranda
+    </p>
+
+    <p>
+      Universitas Panca Budi
+    </p>
+  </footer>
+
+  <script src="ar.js"></script>
+
+</body>
+</html>
