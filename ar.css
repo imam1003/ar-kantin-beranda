@@ -26,13 +26,7 @@ body {
 .brand-icon {
   width: 55px;
   height: 55px;
-  background: #ffd900;
-  color: #222;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-weight: bold;
-  font-size: 20px;
+  object-fit: contain;
 }
 
 .brand h1 {
